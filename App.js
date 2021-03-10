@@ -13,6 +13,7 @@ export default function App() {
       ...currentGoals, 
       {key: Math.random().toString(), value: goalTitle}
     ])
+    setCourseAdd(false)
   }
 
   const removeGoal = goalKey => {
@@ -21,10 +22,14 @@ export default function App() {
     })
   }
 
+  const cancelGoal = () => {
+    setCourseAdd(false)
+  }
+
   return (
     <View style={styles.screen}>
       <Button title="Add new goal" onPress={() => setCourseAdd(true)}/>
-      <GoalInput visible={courseAdd} onAddGoal={addGoal}/>
+      <GoalInput visible={courseAdd} onAddGoal={addGoal} onCancel={cancelGoal} />
       <FlatList 
         data={courseGoals} 
         renderItem={itemData => <GoalItem onDelete={removeGoal.bind(this, itemData.item.key)} children={itemData.item.value} 
